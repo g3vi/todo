@@ -1,0 +1,1 @@
+console.log('Enlazado a JS')
