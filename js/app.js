@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     pintarTareas()
 })
 
+listaTareas.addEventListener('click',(event)=>{
+    //console.log(event)
+    btnAcciones(event)
+})
+
 formulario.addEventListener('submit',e =>{
     e.preventDefault()
     //console.log('evento', e)
@@ -60,4 +65,21 @@ const pintarTareas = () =>{
         fragment.appendChild(clone)
     })
     listaTareas.appendChild(fragment)
+}
+
+const btnAcciones=(click)=>{
+    //console.log(click)
+    if(click.target.classList.contains('fa-check-circle')){
+        tareas[click.target.dataset.id].estado=true
+        pintarTareas()
+    }
+    if(click.target.classList.contains('fa-minus-circle')){
+        delete tareas[click.target.dataset.id]
+        pintarTareas()
+    }
+    if(click.target.classList.contains('fa-undo-alt')){
+        tareas[click.target.dataset.id].estado=false
+        pintarTareas()
+    }
+    click.stopPropagation();
 }
