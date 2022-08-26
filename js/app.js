@@ -9,7 +9,7 @@ let tareas = {}
 document.addEventListener('DOMContentLoaded',()=>{
     //console.log(formulario,listaTareas,template)
     if(localStorage.getItem('tareas')){
-        tareas = JSON.parse
+        tareas = JSON.parse(localStorage.getItem('tareas'))
     }
     //Necesitar pintar las tareas
     pintarTareas()
@@ -27,6 +27,7 @@ formulario.addEventListener('submit',e =>{
 })
 
 const setTarea = e =>{
+    console.log(e)
     const texto = e.target.querySelector('input').value
     console.log('text',texto)
     if(texto.trim() === ''){
@@ -46,15 +47,16 @@ const setTarea = e =>{
 
 const pintarTareas = () =>{
     localStorage.setItem('tareas',JSON.stringify(tareas))
+    console.log(tareas)
     if(Object.values(tareas).length === 0){
         listaTareas.innerHTML = '<div class="alert alert-danger">Sin tareas Pendientes</div>'
         return
     }
     listaTareas.innerHTML = ''
     Object.values(tareas).forEach(tarea => {
-        //console.log('tarea',tarea)
+        console.log('tarea',tarea)
         const clone =template.cloneNode(true)
-        clone.querySelector('p').texContent = tarea.texto
+        clone.querySelector('p').textContent = tarea.texto
         if(tarea.estado){
             clone.querySelectorAll('.fas')[0].classList.replace('fa-check-circle','fa-undo-alt')
             clone.querySelector('.alert').classList.replace('alert-warning','alert-primary')
